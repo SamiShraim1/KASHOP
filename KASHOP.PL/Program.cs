@@ -2,9 +2,11 @@
 using KASHOP.BLL.Services.CategoryServices;
 using KASHOP.DAL.Data;
 using KASHOP.DAL.Repositories.CategoryRepositories;
+using KASHOP.DAL.Repositories.BrandRepositories;
 using Microsoft.EntityFrameworkCore;
 using Scalar;
 using Scalar.AspNetCore;
+using KASHOP.BLL.Services.BrandServices;
 
 namespace KASHOP.PL
 {
@@ -19,8 +21,10 @@ namespace KASHOP.PL
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-            builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+            builder.Services.AddScoped<ICategoryRepository,CategorRepository>();
             builder.Services.AddScoped<ICategoryService, CategoryService>();
+            builder.Services.AddScoped<IBrandRepository, BrandRepository>();
+            builder.Services.AddScoped<IBrandService, BrandService>();
             builder.Services.AddControllers();
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();

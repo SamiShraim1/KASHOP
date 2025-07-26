@@ -1,5 +1,5 @@
 ﻿using KASHOP.DAL.Data;
-using KASHOP.DAL.Models.Category;
+using KASHOP.DAL.Models.Brand;
 using KASHOP.DAL.Repositories.GenericRepository;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -8,13 +8,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KASHOP.DAL.Repositories.CategoryRepositories
+namespace KASHOP.DAL.Repositories.BrandRepositories
 {
-    public class CategorRepository : GenericRepository<Category>, ICategoryRepository
+    public class BrandRepository : GenericRepository<Brand>, IBrandRepository
     {
 
 
-        public CategorRepository(ApplicationDbContext context) : base(context)
+        public BrandRepository(ApplicationDbContext context) : base(context)
         {
 
         }

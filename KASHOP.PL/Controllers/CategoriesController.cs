@@ -9,26 +9,34 @@ namespace KASHOP.PL.Controllers
     [ApiController]
     public class CategoriesController : ControllerBase
     {
-        private readonly ICategoryService categoryService;
+        private readonly ICategoryService _categoryService;
 
         public CategoriesController(ICategoryService categoryService)
         {
-            this.categoryService = categoryService;
+            _categoryService = categoryService;
         }
 
         // GET: api/categories
         [HttpGet("")]
         public async Task<IActionResult> GetAll()
         {
-            var result = await categoryService.GetAllAsync();
+            var result = await _categoryService.GetAllAsync();
             return Ok(result);
+        }
+
+        // GET: api/categories/active
+        [HttpGet("active")]
+        public async Task<IActionResult> GetActiveCategories()
+        {
+            var result = await _categoryService.GetActiveAsync();
+            return Ok(new { message = "Success", data = result });
         }
 
         // GET: api/categories/{id}
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById([FromRoute]int id)
+        public async Task<IActionResult> GetById([FromRoute] int id)
         {
-            var result = await categoryService.GetByIdAsync(id);
+            var result = await _categoryService.GetByIdAsync(id);
             return result == null
                 ? NotFound(new { message = "Category not found" })
                 : Ok(result);
@@ -41,8 +49,8 @@ namespace KASHOP.PL.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var Id = await categoryService.AddAsync(dto);
-            return CreatedAtAction(nameof(GetById), new { Id }, new { message = "Category added successfully", Id }) ;
+            var Id = await _categoryService.AddAsync(dto);
+            return CreatedAtAction(nameof(GetById), new { Id }, new { message = "Category added successfully", Id });
         }
 
         // PUT: api/categories/{id}
@@ -52,7 +60,7 @@ namespace KASHOP.PL.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var updated = await categoryService.UpdateAsync(id, dto);
+            var updated = await _categoryService.UpdateAsync(id, dto);
             return updated == 0
                 ? NotFound(new { message = "Category not found" })
                 : Ok(new { message = "Category updated successfully" });
@@ -62,7 +70,7 @@ namespace KASHOP.PL.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
-            var removed = await categoryService.RemoveAsync(id);
+            var removed = await _categoryService.RemoveAsync(id);
             return removed == 0
                 ? NotFound(new { message = "Category not found" })
                 : Ok(new { message = "Category deleted successfully" });
@@ -72,7 +80,7 @@ namespace KASHOP.PL.Controllers
         [HttpPatch("{id}/toggle-status")]
         public async Task<IActionResult> ToggleStatus([FromRoute] int id)
         {
-            var toggled = await categoryService.ToggleStatusAsync(id);
+            var toggled = await _categoryService.ToggleStatusAsync(id);
             return toggled == false
                 ? NotFound(new { message = "Category not found" })
                 : Ok(new { message = "Category status toggled successfully" });

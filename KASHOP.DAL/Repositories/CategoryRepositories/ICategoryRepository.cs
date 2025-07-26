@@ -1,13 +1,10 @@
 ﻿using KASHOP.DAL.Models.Category;
+using KASHOP.DAL.Repositories.GenericRepository;
 
 namespace KASHOP.DAL.Repositories.CategoryRepositories
 {
-    public interface ICategoryRepository
+    public interface ICategoryRepository : IGenericRepository<Category>
     {
-        Task<int> AddAsync(Category category);
-        Task<IEnumerable<Category>> GetAllAsync(bool AsNoTracking = false);
-        Task<Category>? GetByIdAsync(int id);
-        Task<int> UpdateAsync(Category category);
-        Task<int> RemoveAsync(Category category);
+
     }
 }
