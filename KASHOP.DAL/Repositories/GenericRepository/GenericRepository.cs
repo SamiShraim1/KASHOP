@@ -1,6 +1,5 @@
 ﻿using KASHOP.DAL.Data;
 using KASHOP.DAL.Models;
-using KASHOP.DAL.Models.Category;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
